@@ -1,5 +1,8 @@
 # Download base image ubuntu 22.04
-FROM ubuntu:22.04
+# FROM ubuntu:22.04
+
+
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
 
 # Switch to root to install packages
@@ -23,7 +26,21 @@ RUN apt-get install -y \
     vim \
     git \
     meld \
-    octave
+    octave \
+    paraview \
+    geany \
+    imagej \
+    curl
+
+# Install OpenFOAM
+# Add the repository
+RUN curl https://dl.openfoam.com/add-debian-repo.sh | bash
+
+# Update the repository information
+RUN apt-get update
+
+# Install preferred package. Eg,
+RUN apt-get install openfoam2306-default
 
 
 ENV FFT_inc=/usr/include
@@ -70,6 +87,15 @@ RUN chown -R jovyan:jovyan /usr/local/src/amitex_fftp-v8.17.13/
 
 # Swith user
 USER jovyan
+
+
+
+
+
+
+
+
+
 
 # Go to test directory
 WORKDIR /usr/local/src/amitex_fftp-v8.17.13/validation
