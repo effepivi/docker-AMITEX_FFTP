@@ -42,6 +42,28 @@ RUN apt-get update
 # Install preferred package. Eg,
 RUN apt-get install openfoam2306-default
 
+# Install ChopMesh
+
+
+# Install taichi-LBM3D
+RUN python3 -m pip install pyevtk taichi
+
+# Install PyEFEM
+
+
+# Install Wyvern
+
+
+
+
+
+
+
+
+
+
+
+
 
 ENV FFT_inc=/usr/include
 ENV FFT_lib=/usr/lib/x86_64-linux-gnu
