@@ -21,7 +21,10 @@ RUN apt-get install -y \
     openmpi-bin \
     wget \
     vim \
-    git
+    git \
+    meld \
+    octave
+
 
 ENV FFT_inc=/usr/include
 ENV FFT_lib=/usr/lib/x86_64-linux-gnu
@@ -56,6 +59,7 @@ RUN cmake ..
 RUN make -j16
 RUN make install
 
+RUN mkdir /mnt/output
 
 # create a user, since we don't want to run as root
 RUN useradd -m jovyan
@@ -69,5 +73,8 @@ USER jovyan
 
 # Go to test directory
 WORKDIR /usr/local/src/amitex_fftp-v8.17.13/validation
+
+ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
+
 
 CMD ["/bin/bash"]
